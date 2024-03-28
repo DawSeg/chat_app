@@ -1,26 +1,61 @@
 
-const loginForm = document.querySelector('.welcome-form');
+const logInForm = document.querySelector('.welcome-form');
 const messagesSection = document.querySelector('.messages-section');
-const messagesList = document.querySelector('.messages-section-list');
+const messagesList = document.querySelector('.messages-section__list');
 const addMessageForm = document.querySelector('#add-messages-form');
-const userNameInput = loginForm.querySelector('.text-input');
+const userNameInput = logInForm.querySelector('.text-input');
 const messageContentInput = addMessageForm.querySelector('.text-input');
 
 let userName;
 
-const login = (e) => {
+const logIn = e => {
   e.preventDefault();
 
   if (userNameInput.value.trim() === '') {
     alert('To pole nie może być puste!');
   } else {
     userName = userNameInput.value
-    loginForm.classList.remove('show');
+    logInForm.classList.remove('show');
     messagesSection.classList.add('show');
   };
-}
+};
 
-loginForm.addEventListener('submit', (e) => {
+logInForm.addEventListener('submit', e => {
   e.preventDefault();
-  login(e);
-})
+  logIn(e);
+});
+
+
+const addMessage = (author, content) => {
+  const message = document.createElement('li');
+  message.classList.add('message', 'message-received');
+
+  if (author === userName) {
+    message.classList.add('message--self');
+  };
+
+  message.innerHTML = `
+  <h3 class="message__author">${userName === author ? 'You' : author}</h3>
+  <div class="message__content">
+    ${content}
+  </div>
+  `;
+  messagesList.appendChild(message);
+};
+
+const sendMessage = e => {
+  e.preventDefault();
+  let messageContentValue = messageContentInput.value;
+
+  if (messageContentValue.trim() === '') {
+    alert('To pole nie może być puste!');
+  } else {
+    addMessage(userName, messageContentValue);
+    messageContentValue = ''
+  };
+};
+
+addMessageForm.addEventListener('submit', e => {
+  e.preventDefault();
+  sendMessage(e);
+});
