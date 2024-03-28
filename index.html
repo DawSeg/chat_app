@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <title>Chat App</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <main id="app">
 
@@ -23,7 +25,7 @@
     </form>
 
     <!-- MESSAGES SECTION -->
-    <section class="messages-section show" id="messages-section">
+    <section class="messages-section" id="messages-section">
       <h2>Messages</h2>
 
       <!-- messages list -->
@@ -35,11 +37,11 @@
           </div>
         </li>
         <li class="message message--self">
-            <h3 class="message__author">You</h3>
-            <div class="message__content">
-              Hi!
-            </div>
-          </li>
+          <h3 class="message__author">You</h3>
+          <div class="message__content">
+            Hi!
+          </div>
+        </li>
         <li class="message message--self message--received">
           <h3 class="message__author">You</h3>
           <div class="message__content">
@@ -59,4 +61,5 @@
   </main>
   <script src="app.js" type="module"></script>
 </body>
+
 </html>
