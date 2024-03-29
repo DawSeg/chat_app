@@ -6,6 +6,9 @@ const addMessageForm = document.querySelector('#add-messages-form');
 const userNameInput = logInForm.querySelector('.text-input');
 const messageContentInput = addMessageForm.querySelector('.text-input');
 
+const socket = io();
+socket.on('message', ({ author, content }) => addMessage(author, content))
+
 let userName;
 
 const logIn = e => {
@@ -51,6 +54,7 @@ const sendMessage = e => {
     alert('To pole nie może być puste!');
   } else {
     addMessage(userName, messageContentValue);
+    socket.emit('message', { author: userName, content: messageContentValue })
     messageContentValue = ''
   };
 };
