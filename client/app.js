@@ -20,6 +20,7 @@ const logIn = e => {
     userName = userNameInput.value
     logInForm.classList.remove('show');
     messagesSection.classList.add('show');
+    socket.emit('join', userName);
   };
 };
 
@@ -31,7 +32,7 @@ logInForm.addEventListener('submit', e => {
 
 const addMessage = (author, content) => {
   const message = document.createElement('li');
-  message.classList.add('message', 'message-received');
+  message.classList.add('message', 'message--received');
 
   if (author === userName) {
     message.classList.add('message--self');
