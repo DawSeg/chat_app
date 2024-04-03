@@ -23,7 +23,10 @@ io.on('connection', (socket) => {
 
   socket.on('join', (userName) => {
     console.log(`New user! ${userName} has joined the chat.`)
-    
+    io.emit('message', {
+      author: 'Chat Bot',
+      content: `<i>${userName} has joined the conversation.</i>`
+    });
     users.push({ id: socket.id, name: userName });
   });
 
@@ -37,9 +40,15 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     const index = users.findIndex((user) => user.id === socket.id);
     if (index !== -1) {
+      const userName = users[index].name;
       users.splice(index, 1);
-    };
-    console.log('Oh, socket ' + socket.id + ' has left')
+      io.emit('message', {
+        author: 'Chat Bot',
+        content: `<i>${userName} has left the chat.</i>`
+      });
+      console.log(`User ${userName} has left the chat.`);
+    }
+    console.log('Oh, socket ' + socket.id + ' has left');
   });
   console.log('I\'ve added a listener on message and disconnect events \n');
 });
